@@ -76,82 +76,197 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
         }
 
         nav.scrolled {
             padding: 0.5rem 0;
-            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.4), 0 0 60px rgba(0, 212, 255, 0.15);
+            background: rgba(10, 14, 39, 0.95);
         }
 
         .nav-container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 3rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: logoShine 3s infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .logo-wrapper:hover {
+            transform: scale(1.05);
         }
 
         .logo img {
-            height: 50px;
-            transition: transform 0.3s ease;
+            height: 45px;
+            width: auto;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 
+                0 0 20px rgba(0, 212, 255, 0.3),
+                0 0 40px rgba(157, 78, 221, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5));
+            display: block;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1));
         }
 
-        .logo img:hover {
+        .logo-wrapper:hover img {
             transform: scale(1.05);
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 
+                0 0 30px rgba(0, 212, 255, 0.5),
+                0 0 60px rgba(157, 78, 221, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--white) 0%, var(--accent-color) 50%, var(--ai-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            position: relative;
+            z-index: 1;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 0.5rem;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-dark);
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
-            transition: color 0.3s ease;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
             position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0);
+            transition: all 0.3s ease;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
-            height: 2px;
-            background: var(--primary-color);
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--ai-purple));
             transition: width 0.3s ease;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
         }
 
         .nav-links a:hover {
-            color: var(--primary-color);
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+        }
+
+        .nav-links a:hover::before {
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .nav-links a:hover::after {
-            width: 100%;
+            width: 80%;
         }
 
         .mobile-menu {
             display: none;
             flex-direction: column;
             cursor: pointer;
+            gap: 5px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu:hover {
+            background: rgba(0, 212, 255, 0.1);
         }
 
         .mobile-menu span {
             width: 25px;
             height: 3px;
-            background: var(--text-dark);
-            margin: 3px 0;
+            background: var(--accent-color);
+            margin: 0;
             transition: 0.3s;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+        }
+
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         /* Particle Background */
@@ -385,8 +500,9 @@
 
         /* Section Styles */
         section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
+            padding: 5rem 3rem;
+            width: 100%;
+            max-width: 100%;
             margin: 0 auto;
         }
 
@@ -448,6 +564,9 @@
             gap: 3rem;
             align-items: center;
             margin-top: 3rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .about-text {
@@ -516,9 +635,12 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 3rem;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .service-card {
@@ -672,6 +794,9 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .ai-feature {
@@ -736,6 +861,9 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .tech-card {
@@ -811,6 +939,9 @@
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             margin-top: 3rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .contact-info {
@@ -984,6 +1115,34 @@
                 display: flex;
             }
 
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .logo img {
+                height: 35px;
+                border-radius: 12px;
+            }
+
+            .nav-links {
+                gap: 0;
+            }
+
+            .nav-links a {
+                padding: 0.8rem 1.5rem;
+                border-radius: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -1007,13 +1166,8 @@
             }
 
             .services-grid,
-            .tech-grid,
-            .ai-features {
+            .tech-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .neural-network {
-                height: 300px;
             }
         }
 
@@ -1042,13 +1196,15 @@
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="axonlogo.png" alt="AxonCore Technologies Logo">
+                <div class="logo-wrapper">
+                    <img src="axonlogo.png" alt="AxonCore Technologies Logo">
+                </div>
+                <span class="logo-text">AxonCore</span>
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#ai">AI Solutions</a></li>
                 <li><a href="#technologies">Technologies</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1146,47 +1302,6 @@
         </div>
     </section>
 
-    <!-- AI Section -->
-    <section class="ai-section" id="ai">
-        <h2 class="section-title">AI-Powered Solutions</h2>
-        <p class="section-subtitle">Harnessing the Power of Artificial Intelligence</p>
-        
-        <div class="neural-network" id="neuralNetwork"></div>
-        
-        <div class="ai-features">
-            <div class="ai-feature">
-                <span class="ai-feature-icon">🤖</span>
-                <h3>AI Integration</h3>
-                <p>Seamlessly integrate AI capabilities into your applications with machine learning models, natural language processing, and intelligent automation.</p>
-            </div>
-            <div class="ai-feature">
-                <span class="ai-feature-icon">🧠</span>
-                <h3>Machine Learning</h3>
-                <p>Build intelligent systems that learn from data, make predictions, and continuously improve performance using advanced ML algorithms.</p>
-            </div>
-            <div class="ai-feature">
-                <span class="ai-feature-icon">💡</span>
-                <h3>Smart Automation</h3>
-                <p>Automate complex workflows and decision-making processes with AI-powered systems that adapt to your business needs.</p>
-            </div>
-            <div class="ai-feature">
-                <span class="ai-feature-icon">🔮</span>
-                <h3>Predictive Analytics</h3>
-                <p>Leverage data science and AI to forecast trends, optimize operations, and make data-driven decisions for your business.</p>
-            </div>
-            <div class="ai-feature">
-                <span class="ai-feature-icon">🎯</span>
-                <h3>Computer Vision</h3>
-                <p>Implement image recognition, object detection, and visual analysis capabilities in your applications.</p>
-            </div>
-            <div class="ai-feature">
-                <span class="ai-feature-icon">🗣️</span>
-                <h3>NLP & Chatbots</h3>
-                <p>Create intelligent conversational interfaces with natural language processing and AI-powered chatbots for enhanced user engagement.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- Technologies Section -->
     <section class="technologies" id="technologies">
         <h2 class="section-title">Technologies We Use</h2>
@@ -1242,21 +1357,14 @@
                     <div class="contact-icon">📧</div>
                     <div>
                         <h4>Email</h4>
-                        <p>info@axoncoretech.com</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <div>
-                        <h4>Phone</h4>
-                        <p>+91 XXXX XXXX XX</p>
+                        <p>hrteam@axoncore.co</p>
                     </div>
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon">⏰</div>
                     <div>
                         <h4>Business Hours</h4>
-                        <p>Monday - Friday: 9:00 AM - 6:00 PM IST</p>
+                        <p>Monday - Friday: 1:00 PM - 10:00 PM IST</p>
                     </div>
                 </div>
             </div>
@@ -1286,7 +1394,7 @@
             <a href="#" aria-label="GitHub">💻</a>
             <a href="#" aria-label="Facebook">📘</a>
         </div>
-        <p>&copy; 2024 AxonCore Technologies Private Limited. All rights reserved.</p>
+        <p>&copy; 2025 AxonCore Technologies Private Limited. All rights reserved.</p>
     </footer>
 
     <script>
@@ -1317,7 +1425,7 @@
         animateCursor();
         
         // Cursor hover effects
-        document.querySelectorAll('a, button, .service-card, .tech-card, .ai-feature').forEach(el => {
+        document.querySelectorAll('a, button, .service-card, .tech-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
@@ -1368,74 +1476,20 @@
             setTimeout(() => createCodeLine(), i * 300);
         }
 
-        // Neural Network Animation
-        const neuralNetwork = document.getElementById('neuralNetwork');
-        const nodeCount = 7;
-        const nodePositions = [
-            { top: '20%', left: '20%' },
-            { top: '20%', right: '20%' },
-            { top: '50%', left: '10%' },
-            { top: '50%', right: '10%' },
-            { bottom: '20%', left: '30%' },
-            { bottom: '20%', right: '30%' },
-            { top: '50%', left: '50%', transform: 'translateX(-50%)' }
-        ];
-        
-        for (let i = 0; i < nodeCount; i++) {
-            const node = document.createElement('div');
-            node.className = 'neural-node';
-            Object.assign(node.style, nodePositions[i]);
-            neuralNetwork.appendChild(node);
-        }
-        
-        // Create connections between nodes using percentages
-        function createConnectionPercent(x1, y1, x2, y2) {
-            const connection = document.createElement('div');
-            connection.className = 'neural-connection';
-            
-            // Convert percentages to approximate pixel positions for calculation
-            const containerWidth = neuralNetwork.offsetWidth || 800;
-            const containerHeight = neuralNetwork.offsetHeight || 400;
-            
-            const px1 = (x1 / 100) * containerWidth;
-            const py1 = (y1 / 100) * containerHeight;
-            const px2 = (x2 / 100) * containerWidth;
-            const py2 = (y2 / 100) * containerHeight;
-            
-            const length = Math.sqrt(Math.pow(px2 - px1, 2) + Math.pow(py2 - py1, 2));
-            const angle = Math.atan2(py2 - py1, px2 - px1) * 180 / Math.PI;
-            
-            connection.style.width = length + 'px';
-            connection.style.left = x1 + '%';
-            connection.style.top = y1 + '%';
-            connection.style.transform = `rotate(${angle}deg)`;
-            connection.style.transformOrigin = '0 50%';
-            
-            neuralNetwork.appendChild(connection);
-        }
-        
-        // Add connections after nodes are positioned
-        setTimeout(() => {
-            createConnectionPercent(20, 20, 50, 50);
-            createConnectionPercent(80, 20, 50, 50);
-            createConnectionPercent(50, 50, 30, 80);
-            createConnectionPercent(50, 50, 70, 80);
-            createConnectionPercent(10, 50, 50, 50);
-            createConnectionPercent(90, 50, 50, 50);
-        }, 200);
-
         // Mobile Menu Toggle
         const mobileMenu = document.getElementById('mobileMenu');
         const navLinks = document.getElementById('navLinks');
 
         mobileMenu.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
         });
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
             });
         });
 
@@ -1464,7 +1518,7 @@
         }, observerOptions);
 
         // Observe elements for animation
-        document.querySelectorAll('.about-text, .about-image, .service-card, .tech-card, .contact-info, .contact-form, .ai-feature').forEach(el => {
+        document.querySelectorAll('.about-text, .about-image, .service-card, .tech-card, .contact-info, .contact-form').forEach(el => {
             observer.observe(el);
         });
 
@@ -1478,12 +1532,6 @@
         const techCards = document.querySelectorAll('.tech-card');
         techCards.forEach((card, index) => {
             card.style.transitionDelay = `${index * 0.1}s`;
-        });
-
-        // Stagger animation for AI features
-        const aiFeatures = document.querySelectorAll('.ai-feature');
-        aiFeatures.forEach((feature, index) => {
-            feature.style.transitionDelay = `${index * 0.1}s`;
         });
 
         // Form submission
